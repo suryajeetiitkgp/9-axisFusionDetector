@@ -98,19 +98,34 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         graph_Acce=(GraphView)findViewById(R.id.graphViewAcce);
         graph_Acce.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph_Acce.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+       // graph_Acce.getViewport().setScalableY(true); // enables vertical zooming and scrolling
 
         graph_Gyro=(GraphView)findViewById(R.id.graphViewGyro);
         graph_Gyro.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph_Gyro.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+        //graph_Gyro.getViewport().setScalableY(true); // enables vertical zooming and scrolling
 
         graph_AcceFiltered=(GraphView)findViewById(R.id.graphViewAcceFiltered);
         graph_AcceFiltered.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph_AcceFiltered.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+       // graph_AcceFiltered.getViewport().setScalableY(true); // enables vertical zooming and scrolling
 
         graph_GyroFiltered=(GraphView)findViewById(R.id.graphViewGyroFiltered);
         graph_GyroFiltered.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph_GyroFiltered.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+       // graph_GyroFiltered.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+
+        graph_Acce.getViewport().setYAxisBoundsManual(true);
+        graph_Acce.getViewport().setMinY(0);
+        graph_Acce.getViewport().setMaxY(30);
+        graph_AcceFiltered.getViewport().setYAxisBoundsManual(true);
+        graph_AcceFiltered.getViewport().setMinY(0);
+        graph_AcceFiltered.getViewport().setMaxY(30);
+
+        graph_Gyro.getViewport().setYAxisBoundsManual(true);
+        graph_Gyro.getViewport().setMinY(0);
+        graph_Gyro.getViewport().setMaxY(10);
+        graph_GyroFiltered.getViewport().setYAxisBoundsManual(true);
+        graph_GyroFiltered.getViewport().setMinY(0);
+        graph_GyroFiltered.getViewport().setMaxY(10);
+
         // data
         series_Acc = new LineGraphSeries<DataPoint>();
         series_Acc.setTitle("Acce Normal");
@@ -227,12 +242,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 z = sensorEvent.values[2];
                 final double  normal=Math.sqrt(x * x + y * y + z * z);
                 final   AccelerationData accelerationData=new AccelerationData(indexAcc,normal,0);
-                normalData.add(normal);
+                AssData.add(normal);
                 X_value.setText(Float.toString(x));
                 Y_value.setText(Float.toString(y));
                 Z_value.setText(Float.toString(z));
 
-                if (normalData.size()>2*Utility.WindowSize+1) {
+                if (AssData.size()>2*Utility.WindowSize+1) {
                     if(Utility.IsFilterAss){
                         final RealMatrix frameData = GetFrameData(indexAcc, Utility.WindowSize, AssData);
                         final DataAndFilteredData dataAndFilteredData=new DataAndFilteredData(indexAcc,accelerationData.normal,0);
@@ -272,12 +287,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 z = sensorEvent.values[2];
                 final double  normal=Math.sqrt(x * x + y * y + z * z);
                 final   AccelerationData accelerationData=new AccelerationData(indexGyro,normal,0);
-
+                GyroData.add(normal);
                 Gyro1.setText(Float.toString(x));
                 Gyro2.setText(Float.toString(y));
                 Gyro3.setText(Float.toString(z));
 
-                if (normalData.size()>2*Utility.WindowSize+1) {
+                if (GyroData.size()>2*Utility.WindowSize+1) {
                     if(Utility.IsFilterAss){
                         final RealMatrix frameData = GetFrameData(indexGyro, Utility.WindowSize, GyroData);
                         final DataAndFilteredData dataAndFilteredData=new DataAndFilteredData(indexGyro,accelerationData.normal,0);

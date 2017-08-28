@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">FusionAlgorithm9Axis</string>
+    <string name="app_name">Fusion Algorithm 9-Axis</string>
+    <string name="please_zoom_out_the_phaphs_for_clear_view">*please zoom out the ghaphs for clear view</string>
 </resources>
